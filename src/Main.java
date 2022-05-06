@@ -9,27 +9,29 @@ public class Main {
         int balance = 100500;
         String input = "buy book 'book2' 1";
 
-        main.handle(input, bookList, balance);
+        System.out.println(main.handle(input, bookList, balance));
 
 
     }
 
-    public void handle(String request, List<Book> bookList, int balance) {
-        if ("print balance".equals(request)) {
-            System.out.println("Your balance is: " + balance);
-        }
-        if ("show books in stock".equals(request)) {
-            for (Book book : bookList) {
-                System.out.println(book);
-            }
-        }
-        if ("exit".equals(request)) {
+    public String handle(String request, List<Book> bookList, int balance) {
+        String respond = "";
 
-        }
-        String name = "";
-        int i = 0;
-        String countStr = "";
-        if (request.contains("buy book")) {
+        if ("print balance".equals(request)) {
+            respond = "Your balance is: " + balance;
+        } else if ("show books in stock".equals(request)) {
+
+            for (Book book : bookList) {
+                respond = respond + book + "/n";
+            }
+            return respond;
+        } else if ("exit".equals(request)) {
+
+            respond = "";
+        } else if (request.contains("buy book")) {
+            String name = "";
+            int i = 0;
+            String countStr = "";
             String nameCountStr = request.replaceAll("buy book ", "");
             System.out.println(nameCountStr);
             if (nameCountStr.charAt(i) == '\'') {
@@ -54,11 +56,14 @@ public class Main {
                 if (name.equals(book.name)) {
 
                     book.count = book.count - count;
-                    balance = balance + (book.count * book.price);
+                    balance = balance + (count * book.price);
+                    respond = "balance: " + balance + ", " + book.toString();
                 }
             }
 
         }
+
+        return respond;
     }
 
 
