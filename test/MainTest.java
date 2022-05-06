@@ -23,7 +23,7 @@ class MainTest {
         String input = "buy book 'book2' 1";
         String respond = main.handle(input, bookList, balance);
         //and check
-        assertEquals("balance: 105, Name = book2, Price = 123, Count = 9", respond);
+        assertEquals("balance: 105, Name = book2, Price = 5, Count = 9", respond);
     }
     @Test
     void showAllBooksTest() {
@@ -36,5 +36,13 @@ class MainTest {
         //and check
         assertEquals("Name = book2, Price = 123, Count = 10" + "/n" +
                              "Name = book3, Price = 452, Count = 53", respond);
+    }
+    @Test
+    void exitTest() {
+        //where
+        //do
+        String input = "exit";
+        //and check
+        assertEquals("exit", "???");
     }
 }

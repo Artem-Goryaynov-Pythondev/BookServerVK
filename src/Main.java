@@ -33,7 +33,6 @@ public class Main {
             int i = 0;
             String countStr = "";
             String nameCountStr = request.replaceAll("buy book ", "");
-            System.out.println(nameCountStr);
             if (nameCountStr.charAt(i) == '\'') {
                 i++;
                 while (nameCountStr.charAt(i) != '\'') {
@@ -51,7 +50,6 @@ public class Main {
                 }
             }
             int count = Integer.decode(countStr);
-            System.out.println(count);
             for (Book book : bookList) {
                 if (name.equals(book.name)) {
 
