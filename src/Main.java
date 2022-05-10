@@ -67,27 +67,22 @@ public class Main {
             }
             i++;
         }
-        i++;
-        i++;
-        if (src.charAt(i) == '\'') {   //по второму кругу то же самое, но с ценой
+        if (src.charAt(i) == ',') {   //по второму кругу то же самое, но с ценой
             i++;
-            while (src.charAt(i) != '\'') {
+            while (src.charAt(i) != ',') {
                 priceStr = priceStr + src.charAt(i);
                 i++;
             }
-            i++;
         }
-        i++;
-        i++;
-        if (src.charAt(i) == '\'') {    //то же самое, но с количеством
+        if (src.charAt(i) == ',') {    //то же самое, но с количеством
             i++;
-            while (src.charAt(i) != '\'') {
+            while (i != src.length()) {
                 countStr = countStr + src.charAt(i);
                 i++;
             }
         }
-        int count = Integer.decode(countStr);   //делаем так, чтобы строка превратилась в число
-        int price = Integer.decode(priceStr);   //делаем так, чтобы строка превратилась в число
+        int count = Integer.decode(countStr.trim());   //делаем так, чтобы строка превратилась в число
+        int price = Integer.decode(priceStr.trim());   //делаем так, чтобы строка превратилась в число
         Book book = new Book(nameStr, price, count, 0);  //создаем новую книгу
         return book;    //возвращаем её
     }
