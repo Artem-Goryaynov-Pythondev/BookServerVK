@@ -62,6 +62,17 @@ class MainTest {
         String input = "buy \"algebra!!!!!, 11 class\" 5, \"Artem\"";
         String respond = main.processing(input, bookList, balance);
         assertEquals( "no deal", respond);
+    }@Test
+    void buyNonEnoughBookTest() {
+        //where
+        String data = "balance: 1000, books: [('algebra, 10 class', '5', '150'), ('algorithm, 4 class', '70', '100')]";
+        List<Main.Book> bookList = main.parseBooks(data);
+        int balance = main.parseBalance(data);
+
+
+        String input = "buy \"algebra, 10 class\" 5314432, \"Artem\"";
+        String respond = main.processing(input, bookList, balance);
+        assertEquals( "no deal", respond);
     }
     @Test
     void showAllBooksTest() {
