@@ -52,6 +52,18 @@ class MainTest {
 
     }
     @Test
+    void buyNonExistsBookTest() {
+        //where
+        String data = "balance: 1000, books: [('algebra, 10 class', '5', '150'), ('algorithm, 4 class', '70', '100')]";
+        List<Main.Book> bookList = main.parseBooks(data);
+        int balance = main.parseBalance(data);
+
+
+        String input = "buy \"algebra!!!!!, 11 class\" 5, \"Artem\"";
+        String respond = main.processing(input, bookList, balance);
+        assertEquals( "no deal", respond);
+    }
+    @Test
     void showAllBooksTest() {
         //where
         List<Main.Book> bookList = main.parseBooks("balance: 1000, books: [('algebra, 10 class', '5', '150'), ('algorithm, 4 class', '70', '10')]");
@@ -87,8 +99,17 @@ class MainTest {
         String input = "exit";
         String respond = main.processing(input, bookList, balance);
         //and check
-        assertEquals("", respond);
+        assertEquals("exit", respond);
+    }@Test
+    void IDontUnderstandTest() {
+        //where
+       String data = "balance: 1000, books: [('algebra, 10 class', '5', '150'), ('algorithm, 4 class', '70', '100')]";
+       List<Main.Book> bookList = main.parseBooks(data);
+       int balance = main.parseBalance(data);
+        //do
+        String input = "gihfiofshi";
+        String respond = main.processing(input, bookList, balance);
+        //and check
+        assertEquals("I don't understand", respond);
     }
-    //todo Проверить что не продаются книги которые не существуют, и что книг меньше чем пытаются купить
-
 }
