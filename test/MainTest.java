@@ -16,7 +16,7 @@ class MainTest {
     @Test
     void buyBookTest() {
         //where
-        String data = "balance: 1000, books: [('algebra, 10 class', 5, 150), ('algorithm, 4 class', 70, 100)]";
+        String data = "balance: 1000, books: [(\"algebra, 10 class\", 5, 150), (\"algorithm, 4 class\", 70, 100)]";
         List<Main.Book> bookList = main.parseBooks(data);
         int balance = main.parseBalance(data);
 
@@ -54,7 +54,7 @@ class MainTest {
     @Test
     void buyNonExistsBookTest() {
         //where
-        String data = "balance: 1000, books: [('algebra, 10 class', 5, 150), ('algorithm, 4 class', 70, 100)]";
+        String data = "balance: 1000, books: [(\"algebra, 10 class\", 5, 150), (\"algorithm, 4 class\", 70, 100)]";
         List<Main.Book> bookList = main.parseBooks(data);
         int balance = main.parseBalance(data);
 
@@ -65,7 +65,7 @@ class MainTest {
     }@Test
     void buyNonEnoughBookTest() {
         //where
-        String data = "balance: 1000, books: [('algebra, 10 class', 5, 150), ('algorithm, 4 class', 70, 100)]";
+        String data = "balance: 1000, books: [(\"algebra, 10 class\", 5, 150), (\"algorithm, 4 class\", 70, 100)]";
         List<Main.Book> bookList = main.parseBooks(data);
         int balance = main.parseBalance(data);
 
@@ -77,7 +77,7 @@ class MainTest {
     @Test
     void showAllBooksTest() {
         //where
-        String data = "balance: 1000, books: [('algebra, 10 class', 5, 150), ('algorithm, 4 class', 70, 100)]";
+        String data = "balance: 1000, books: [(\"algebra, 10 class\", 5, 150), (\"algorithm, 4 class\", 70, 100)]";
         List<Main.Book> bookList = main.parseBooks(data);
         int balance = main.parseBalance(data);
          //do
@@ -92,7 +92,7 @@ class MainTest {
     @Test
     void balanceTest() {
         //where
-        String data = "balance: 1000, books: [('algebra, 10 class', 5, 150), ('algorithm, 4 class', 70, 100)]";
+        String data = "balance: 1000, books: [(\"algebra, 10 class\", 5, 150), (\"algorithm, 4 class\", 70, 100)]";
         List<Main.Book> bookList = main.parseBooks(data);
         int balance = main.parseBalance(data);
         //do
@@ -104,7 +104,7 @@ class MainTest {
    @Test
     void exitTest() {
         //where
-       String data = "balance: 1000, books: [('algebra, 10 class', 5, 150), ('algorithm, 4 class', 70, 100)]";
+       String data = "balance: 1000, books: [(\"algebra, 10 class\", 5, 150), (\"algorithm, 4 class\", 70, 100)]";
        List<Main.Book> bookList = main.parseBooks(data);
        int balance = main.parseBalance(data);
         //do
@@ -115,7 +115,7 @@ class MainTest {
     }@Test
     void IDontUnderstandTest() {
         //where
-       String data = "balance: 1000, books: [('algebra, 10 class', 5, 150), ('algorithm, 4 class', 70, 100)]";
+       String data = "balance: 1000, books: [(\"algebra, 10 class\", 5, 150), (\"algorithm, 4 class\", 70, 100)]";
        List<Main.Book> bookList = main.parseBooks(data);
        int balance = main.parseBalance(data);
         //do

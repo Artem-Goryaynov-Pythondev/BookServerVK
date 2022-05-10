@@ -59,9 +59,9 @@ public class Main {
         String nameStr = "";
         String priceStr = "";
         String countStr = "";
-        if (src.charAt(i) == '\'') { //если символ = "'"
+        if (src.charAt(i) == '\"') { //если символ = """
             i++;    //увеличиваем счетчик
-            while (src.charAt(i) != '\'') {     //пока символ не равен "'"
+            while (src.charAt(i) != '\"') {     //пока символ не равен """
                 nameStr = nameStr + src.charAt(i);  //добавляем символ
                 i++;
             }
