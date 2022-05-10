@@ -96,7 +96,7 @@ public class Main {
         String respond = "";
         String res = "";
         if ("print balance".equals(request)) {
-            respond = "Your balance is: " + balance;    //выводим баланс
+            respond = "balance: " + balance + " rub.";    //выводим баланс
         } else if ("show books in stock".equals(request)) {
             for (Book book : bookList) {
                 respond = respond + book + "\n";    //выводим какие книги есть в продаже

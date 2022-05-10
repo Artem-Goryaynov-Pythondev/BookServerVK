@@ -77,28 +77,29 @@ class MainTest {
     @Test
     void showAllBooksTest() {
         //where
-        List<Main.Book> bookList = main.parseBooks("balance: 1000, books: [('algebra, 10 class', '5', '150'), ('algorithm, 4 class', '70', '10')]");
-        int balance = 100500;
-        System.out.println();
+        String data = "balance: 1000, books: [('algebra, 10 class', '5', '150'), ('algorithm, 4 class', '70', '100')]";
+        List<Main.Book> bookList = main.parseBooks(data);
+        int balance = main.parseBalance(data);
          //do
         String input = "show books in stock";
         String respond = main.processing(input, bookList, balance);
         //and check
         assertEquals("\"algebra, 10 class\", 5 pcs., 150 rub.\n" +
-                "\"algorithm, 4 class\", 70 pcs., 10 rub.\n", respond);
+                "\"algorithm, 4 class\", 70 pcs., 100 rub.\n", respond);
 
 
     }
     @Test
     void balanceTest() {
         //where
-        List<Main.Book> bookList = main.parseBooks("[('Совершенный код, Стив Макконелл','123','10'),('Сборник анекдотов про Мариванну','452','53')");
-        int balance = 100500;
+        String data = "balance: 1000, books: [('algebra, 10 class', '5', '150'), ('algorithm, 4 class', '70', '100')]";
+        List<Main.Book> bookList = main.parseBooks(data);
+        int balance = main.parseBalance(data);
         //do
         String input = "print balance";
         String respond = main.processing(input, bookList, balance);
         //and check
-        assertEquals("Your balance is: 100500", respond);
+        assertEquals("balance: 1000 rub." , respond );
     }
    @Test
     void exitTest() {
