@@ -11,8 +11,8 @@ public class Main {
         int balance = main.parseBalance(data);
         System.out.println("books: "+bookList);
         System.out.println("balance: "+balance);
-        String respond = "";
-        while (!respond.equals("exit")) {
+        String respond = "dasf";
+        while (!respond.equals("")) {
             System.out.println("введите команду, пожалуйста: ");
             String input = console.nextLine();
             respond = main.processing(input, bookList, balance);
@@ -102,7 +102,7 @@ public class Main {
                 respond = respond + book + "\n";    //выводим какие книги есть в продаже
             }
         } else if ("exit".equals(request)) {
-            respond = "exit";   //выход из программы
+            respond = "";   //выход из программы
         } else if (request.contains("buy")) {
             String name = "";   //создаем новую переменную с типом string
             int i = 0;

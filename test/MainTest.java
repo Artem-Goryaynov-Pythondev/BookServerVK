@@ -110,7 +110,7 @@ class MainTest {
         String input = "exit";
         String respond = main.processing(input, bookList, balance);
         //and check
-        assertEquals("exit", respond);
+        assertEquals("", respond);
     }@Test
     void IDontUnderstandTest() {
         //where
