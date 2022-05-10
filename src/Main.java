@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.Scanner;
 
 public class Main {
 
@@ -124,69 +123,54 @@ public class Main {
         return book;    //возвращаем её
     }
 
-
-    public static class Book {
-
-        String name;    //создаем новую переменную с типом string
-        int price;  //создаем новую переменную с типом int
-        int count;  //создаем новую переменную с типом int
-
-        int boughtCount;    //создаем новую переменную с типом int
-
-        public Book(String name, int price, int count, int boughtCount) {
-            this.name = name;
-            this.price = price;
-            this.count = count;
-            this.boughtCount = boughtCount;
-        }
-
-        @Override
-        public String toString() {
-            return "\"" + name + "\"" + ", " + price + " pcs." + "," + " " + count  + " rub.";
-        }
-    }
-
     public String processing(String request, List<Book> bookList, int balance) {
         String respond = "";
         String res = "";
 
         if ("print balance".equals(request)) {
             respond = "Your balance is: " + balance;    //выводим баланс
-            return respond;
         } else if ("show books in stock".equals(request)) {
 
             for (Book book : bookList) {
                 respond = respond + book + "\n";    //выводим какие книги есть в продаже
             }
-            return respond;
         } else if ("exit".equals(request)) {
 
             respond = "";   //выход из программы
-            return respond;
         } else if (request.contains("buy")) {
             String name = "";   //создаем новую переменную с типом string
             int i = 0;
             String countStr = "";   //создаем новую переменную с типом string
-            String nameCountStr = request.replaceAll("buy ", "");   //мы вырезаем из nameCountStr символы buy
+            String nameCountBuyerStr = request.replaceAll("buy ", "");   //мы вырезаем из nameCountBuyerStr символы buy
 
-            if (nameCountStr.charAt(i) == '\"') {
+            if (nameCountBuyerStr.charAt(i) == '\"') {
                 i++;
-                while (nameCountStr.charAt(i) != '\"') {    //пока не равнеется "'" добавляем символы
-                    name = name + nameCountStr.charAt(i);
+                while (nameCountBuyerStr.charAt(i) != '\"') {    //пока не равнеется "'" добавляем символы
+                    name = name + nameCountBuyerStr.charAt(i);
                     i++;
 
                 }
             }
             i++;
-            if (nameCountStr.charAt(i) == ' ') {    //если символ равен " "
+            if (nameCountBuyerStr.charAt(i) == ' ') {    //если символ равен " "
                 i++;
-                while (i < nameCountStr.length()) { //повторяем, пока меньше длины nameCountStr и добавляем символы
-                    countStr = countStr + nameCountStr.charAt(i);
+                while (nameCountBuyerStr.charAt(i) != ',') { //повторяем, пока меньше длины nameCountBuyerStr и добавляем символы
+                    countStr = countStr + nameCountBuyerStr.charAt(i);
+                    i++;
+                }
+                i++;
+            }
+            i++;
+            int count = Integer.decode(countStr);   //делаем так, чтобы строка превратилась в число
+
+            String buyer = "";
+            if (nameCountBuyerStr.charAt(i) == '\"') {
+                i++;
+                while (nameCountBuyerStr.charAt(i) != '\"') {
+                    buyer = buyer + nameCountBuyerStr.charAt(i);
                     i++;
                 }
             }
-            int count = Integer.decode(countStr);   //делаем так, чтобы строка превратилась в число
-
             for (Book book : bookList) {    //проходимся по каждой книги и проверем
                 if (name.equals(book.name)) {   //если имена совпадпают
                     if (book.count >= count) {  //если кол-во книг больше или равно количеству
@@ -195,24 +179,55 @@ public class Main {
                         book.count = book.count - count;    //уменьшаем кол-во
                         balance = balance + (count * book.price);   //увеличиваем баланс
                         book.boughtCount = book.boughtCount + count;
-
+                        if (!book.buyer.contains(buyer)) {
+                            book.buyer.add(buyer);
+                        }
 
                     }
                 }
             }
         } else if (request.contains("show bought books")) {
-            for (Book book : bookList) {
-                if (book.boughtCount != 0) {
-
-                    respond = respond + ("\""+book.name+"\"" + ", " + book.boughtCount + " pcs." + "\n");
-                }
-
+            String buyer;
+            //если в request содержится 'by', то вырезаем 'show bought books by ' и таким образом получаем покупателя
+            if (request.contains("by")) {
+                buyer = request.replaceAll("show bought books by ", "");
+            }//иначе buyer = ''
+            else{
+                buyer = "";
             }
-            return respond;
+
+
+            for (Book book : bookList) {
+                //если количество купленных книг не равно нулю и либо покупатель не уточнен либо книга содержит покупателя
+                //, то в ответ добавляется книга
+                if ((book.boughtCount != 0) && (buyer.isEmpty() || book.buyer.contains(buyer))) {
+                        respond = respond + ("\"" + book.name + "\"" + ", " + book.boughtCount + " pcs." + "\n");
+
+                }
+            }
+        }
+        return respond;
+    }
+
+    public static class Book {
+        List<String> buyer = new ArrayList<>();
+        String name;    //создаем новую переменную с типом string
+        int price;  //создаем новую переменную с типом int
+        int count;  //создаем новую переменную с типом int
+        int boughtCount;    //создаем новую переменную с типом int
+
+        public Book(String name, int price, int count, int boughtCount) {
+            this.name = name;
+            this.price = price;
+            this.count = count;
+            this.boughtCount = boughtCount;
+            ;
         }
 
-
-        return respond;
+        @Override
+        public String toString() {
+            return "\"" + name + "\"" + ", " + price + " pcs." + "," + " " + count + " rub.";
+        }
     }
 }
 /*
