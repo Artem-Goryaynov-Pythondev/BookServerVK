@@ -1,6 +1,7 @@
 import java.util.*;
 
 public class Main {
+    List<Deal> deals = new ArrayList<>();
 
     public static void main(String[] args) {
         Scanner console = new Scanner(System.in);
@@ -9,8 +10,8 @@ public class Main {
         String data = console.nextLine();
         List<Book> bookList = main.parseBooks(data);
         int balance = main.parseBalance(data);
-        System.out.println("books: "+bookList);
-        System.out.println("balance: "+balance);
+        System.out.println("books: " + bookList);
+        System.out.println("balance: " + balance);
         String respond = "dasf";
         while (!respond.equals("")) {
             System.out.println("введите команду, пожалуйста: ");
@@ -83,7 +84,7 @@ public class Main {
         }
         int count = Integer.decode(countStr.trim());   //делаем так, чтобы строка превратилась в число
         int price = Integer.decode(priceStr.trim());   //делаем так, чтобы строка превратилась в число
-        Book book = new Book(nameStr, price, count, 0);  //создаем новую книгу
+        Book book = new Book(nameStr, price, count);  //создаем новую книгу
         return book;    //возвращаем её
     }
 
@@ -137,10 +138,8 @@ public class Main {
                         respond = "deal";
                         book.count = book.count - count;    //уменьшаем кол-во
                         balance = balance + (count * book.price);   //увеличиваем баланс
-                        book.boughtCount = book.boughtCount + count;
-                        if (!book.buyer.contains(buyer)) {
-                            book.buyer.add(buyer);
-                        }
+                        deals.add(new Deal(name, buyer, count));
+
                     }
                 }
             }
@@ -153,12 +152,17 @@ public class Main {
             else {
                 buyer = "";
             }
-            for (Book book : bookList) {
-                //если количество купленных книг не равно нулю и либо покупатель не уточнен либо книга содержит покупателя
-                //, то в ответ добавляется книга
-                if ((book.boughtCount != 0) && (buyer.isEmpty() || book.buyer.contains(buyer))) {
-                    respond = respond + ("\"" + book.name + "\"" + ", " + book.boughtCount + " pcs." + "\n");
 
+            if (deals.isEmpty()){
+                respond = "nothing";
+            }else{
+                for (Deal deal : deals) {
+                    //либо покупатель не уточнен либо книга содержит покупателя
+                    //, то в ответ добавляется книга
+                    if ((buyer.isEmpty() || deal.buyer.contains(buyer))) {
+                        respond = respond + ("\"" + deal.bookName + "\"" + ", " + deal.count + " pcs." + "\n");
+
+                    }
                 }
             }
         } else {
@@ -172,19 +176,30 @@ public class Main {
         String name;    //создаем новую переменную с типом string
         int price;  //создаем новую переменную с типом int
         int count;  //создаем новую переменную с типом int
-        int boughtCount;    //создаем новую переменную с типом int
 
-        public Book(String name, int price, int count, int boughtCount) {
+        public Book(String name, int price, int count) {
             this.name = name;
             this.price = price;
             this.count = count;
-            this.boughtCount = boughtCount;
         }
 
         @Override
         public String toString() {
             return "\"" + name + "\"" + ", " + price + " pcs." + "," + " " + count + " rub.";
         }
+    }
+
+    class Deal {
+        String bookName;
+        String buyer;
+        int count;
+
+        Deal(String bookName, String buyer,int count) {
+            this.bookName = bookName;
+            this.buyer = buyer;
+            this.count = count;
+        }
+
     }
 }
 /*

@@ -37,18 +37,19 @@ class MainTest {
         String respond1 = main.processing(input1, bookList, balance);
         //and check
         assertEquals("\"algebra, 10 class\", 5 pcs.\n" +
-                             "\"algorithm, 4 class\", 13 pcs.\n", respond1);
+                "\"algorithm, 4 class\", 6 pcs.\n" +
+                "\"algorithm, 4 class\", 7 pcs.\n", respond1);
 
         String input4 = "show bought books by Artem";
         String respond4= main.processing(input4, bookList, balance);
         //and check
         assertEquals("\"algebra, 10 class\", 5 pcs.\n" +
-                "\"algorithm, 4 class\", 13 pcs.\n", respond4);
+                "\"algorithm, 4 class\", 7 pcs.\n", respond4);
 
         String input5 = "show bought books by vinipux";
         String respond5= main.processing(input5, bookList, balance);
         //and check
-        assertEquals("\"algorithm, 4 class\", 13 pcs.\n", respond5);
+        assertEquals("\"algorithm, 4 class\", 6 pcs.\n", respond5);
 
     }
     @Test
@@ -123,5 +124,17 @@ class MainTest {
         String respond = main.processing(input, bookList, balance);
         //and check
         assertEquals("I don't understand", respond);
+    }
+    @Test
+    void showNonExistantBoughtBooksTest() {
+        //where
+        String data = "balance: 1000, books: [(\"algebra, 10 class\", 5, 150), (\"algorithm, 4 class\", 70, 100)]";
+        List<Main.Book> bookList = main.parseBooks(data);
+        int balance = main.parseBalance(data);
+        //do
+        String input = "show bought books by Artem";
+        String respond = main.processing(input, bookList, balance);
+        //and check
+        assertEquals("nothing", respond);
     }
 }
